@@ -11,7 +11,11 @@
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "dependsOn": [
+                "test"
+            ],
+            "isBuildCommand": true
         },
         {
             "label": "publish",
@@ -36,6 +40,16 @@
                 "${workspaceFolder}/ServiceNowComparerConsole/ServiceNowComparerConsole.csproj"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}"
+            ],
+            "isTestCommand": true
+        },
     ]
 }

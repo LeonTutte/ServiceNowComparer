@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceNowComparerConsole",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceNowComparerLibrary", "ServiceNowComparerLibrary\ServiceNowComparerLibrary.csproj", "{F391F472-9E3B-48CD-A2E8-ACB5D377F8A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceNowComparerLibrary.Tests", "ServiceNowComparerLibrary.Tests\ServiceNowComparerLibrary.Tests.csproj", "{C9601674-9337-420C-A074-87A41B285C81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F391F472-9E3B-48CD-A2E8-ACB5D377F8A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F391F472-9E3B-48CD-A2E8-ACB5D377F8A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F391F472-9E3B-48CD-A2E8-ACB5D377F8A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9601674-9337-420C-A074-87A41B285C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9601674-9337-420C-A074-87A41B285C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9601674-9337-420C-A074-87A41B285C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9601674-9337-420C-A074-87A41B285C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
