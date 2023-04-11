@@ -13,13 +13,18 @@ namespace ServiceNowComparerLibrary.Storage.Validators
     {
         public UserValidator()
         {
-            // TODO: should not contain any spaces
             RuleFor(u => u.Label)
                 .NotEmpty()
-                .MinimumLength(3);
+                .MinimumLength(3)
+                .Must(ShouldContainSpaces);
 
             RuleFor(u => u.Password)
             .NotEmpty();
+        }
+
+        protected bool ShouldContainSpaces(string label)
+        {
+            return label.All(Char.IsLetterOrDigit);
         }
     }
 }
