@@ -1,6 +1,8 @@
 # ServiceNow Comparer
 _Quickly and easily compare table data_
 
+![latest build](https://github.com/LeonTutte/ServiceNowComparer/actions/workflows/dotnet.yml/badge.svg)
+![security](https://github.com/LeonTutte/ServiceNowComparer/actions/workflows/codeql.yml/badge.svg)
 ---
 
 This application enables the import and viewing of tables from multiple ServiceNow Instances.
