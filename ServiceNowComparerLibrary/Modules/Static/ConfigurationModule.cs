@@ -7,9 +7,22 @@ namespace ServiceNowComparerLibrary.Modules.Static
     {
         public static IniData GetConfiguration()
         {
+            IniData data;
             var parser = new FileIniDataParser();
-            IniData data = parser.ReadFile("settings.ini");
-            return data;
+            try
+            {
+                data = parser.ReadFile("settings.ini");
+                return data;
+            }
+            catch (FileNotFoundException)
+            {
+                LogModule.WriteError("settings file no found");
+            }
+            catch (FieldAccessException)
+            {
+                LogModule.WriteError("settings file not accessible");
+            }
+            return new IniData();
         }
     }
 }
