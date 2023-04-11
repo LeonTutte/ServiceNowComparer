@@ -6,10 +6,10 @@ namespace ServiceNowComparerLibrary.Modules.Static
     public static class ConfigurationModule
     {
         public static IniData GetConfiguration()
-    {
-        var parser = new FileIniDataParser();
-        IniData data = parser.ReadFile("settings.ini");
-        return data;
-    }
+        {
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile("settings.ini");
+            return data;
+        }
     }
 }
