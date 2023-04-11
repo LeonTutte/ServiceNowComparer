@@ -3,7 +3,7 @@ using IniParser.Model;
 
 namespace ServiceNowComparerLibrary.Modules.Static
 {
-    public class ConfigurationModule
+    public static class ConfigurationModule
     {
         public static IniData GetConfiguration()
     {
