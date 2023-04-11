@@ -9,12 +9,12 @@ namespace ServiceNowComparerLibrary.Storage.Validators
         public ServiceNowInstanceValidator()
         {
             RuleFor(sni => sni.Label)
-                .NotEmpty()
-                .MinimumLength(3);
+                .NotEmpty().WithMessage("{PropertyName} is Empty")
+                .MinimumLength(3).WithMessage("{PropertyName} is less than 3 characters");
 
             RuleFor(sni => sni.Url)
-                .NotEmpty()
-                .MinimumLength(3);
+                .NotEmpty().WithMessage("{PropertyName} is Empty")
+                .MinimumLength(3).WithMessage("{PropertyName} is less than 3 characters");
         }
     }
 }

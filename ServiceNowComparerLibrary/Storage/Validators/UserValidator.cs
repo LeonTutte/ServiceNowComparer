@@ -14,12 +14,12 @@ namespace ServiceNowComparerLibrary.Storage.Validators
         public UserValidator()
         {
             RuleFor(u => u.Label)
-                .NotEmpty()
-                .MinimumLength(3)
-                .Must(ShouldContainSpaces);
+                .NotEmpty().WithMessage("{PropertyName} is Empty")
+                .MinimumLength(3).WithMessage("{PropertyName} is less than 3 characters")
+                .Must(ShouldContainSpaces).WithMessage("{PropertyName} contains whitespace's");
 
             RuleFor(u => u.Password)
-            .NotEmpty();
+            .NotEmpty().WithMessage("{PropertyName} is Empty");
         }
 
         protected bool ShouldContainSpaces(string label)

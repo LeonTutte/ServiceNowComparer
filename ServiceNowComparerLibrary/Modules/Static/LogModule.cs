@@ -45,7 +45,7 @@ namespace ServiceNowComparerLibrary.Modules.Static
             for (int i = 0; i < result.Errors.Count; i++)
             {
                 ValidationFailure failure = result.Errors[i];
-                WriteError($"{failure.PropertyName}: {failure.ErrorMessage}");
+                WriteError(failure.ErrorMessage);
             }
             return;
 
