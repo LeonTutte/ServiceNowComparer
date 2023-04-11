@@ -13,6 +13,8 @@ namespace ServiceNowComparerLibrary.Storage.Validators
     {
         public UserValidator()
         {
+            RuleLevelCascadeMode = CascadeMode.Stop;
+
             RuleFor(u => u.Label)
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .MinimumLength(3).WithMessage("{PropertyName} is less than 3 characters")

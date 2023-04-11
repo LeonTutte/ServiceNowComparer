@@ -8,6 +8,8 @@ namespace ServiceNowComparerLibrary.Storage.Validators
     {
         public ServiceNowInstanceValidator()
         {
+            RuleLevelCascadeMode = CascadeMode.Stop;
+
             RuleFor(sni => sni.Label)
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .MinimumLength(3).WithMessage("{PropertyName} is less than 3 characters");
