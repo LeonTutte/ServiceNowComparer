@@ -16,7 +16,7 @@ namespace ServiceNowComparerLibrary.Modules.Static
             // TODO: do something with exception
             if (connectionString.Contains("000000")) throw new ArgumentException("Password is not set");
             if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
-            LogModule.WriteInformation($"Reading database from: {connectionString}");
+            LogModule.WriteDebug($"Reading database from: {GetStoragePath()}");
             return new LiteDatabase(connectionString);
         }
 
