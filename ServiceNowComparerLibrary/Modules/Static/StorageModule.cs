@@ -9,6 +9,8 @@ namespace ServiceNowComparerLibrary.Modules.Static
         public static LiteDatabase GetStorage()
         {
             string connectionString = GetConnectionStringFromConfigurationFile();
+            // TODO: do something with exception
+            if (connectionString.Contains("000000")) throw new ArgumentException("Password is not set");
             if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
             LogModule.WriteInformation($"Reading database from: {connectionString}");
             return new LiteDatabase(connectionString);
@@ -18,7 +20,7 @@ namespace ServiceNowComparerLibrary.Modules.Static
         {
             IniData data = ConfigurationModule.GetConfiguration();
             string filePath = Path.Combine(Environment.CurrentDirectory, data["Database"]["Filename"]);
-            return $"Filename={filePath};Password={data["Database"]["Password"]}";
+            return $"Filename={filePath};Password={CryptoModule.StoragePassword}";
         }
 
         public static string GetStoragePath()
