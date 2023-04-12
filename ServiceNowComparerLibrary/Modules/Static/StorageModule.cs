@@ -6,6 +6,10 @@ namespace ServiceNowComparerLibrary.Modules.Static
 {
     public static class StorageModule
     {
+        /// <summary>
+        /// Return the storage if password ist set and ini file is available
+        /// </summary>
+        /// <returns>LiteDatabase</returns>
         public static LiteDatabase GetStorage()
         {
             string connectionString = GetConnectionStringFromConfigurationFile();
@@ -22,7 +26,10 @@ namespace ServiceNowComparerLibrary.Modules.Static
             string filePath = Path.Combine(Environment.CurrentDirectory, data["Database"]["Filename"]);
             return $"Filename={filePath};Password={CryptoModule.StoragePassword}";
         }
-
+        /// <summary>
+        /// Returns the full paht to the storage file
+        /// </summary>
+        /// <returns>string</returns>
         public static string GetStoragePath()
         {
             IniData data = ConfigurationModule.GetConfiguration();
