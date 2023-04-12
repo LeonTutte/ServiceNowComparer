@@ -27,6 +27,9 @@ namespace ServiceNowComparerLibrary.Modules.Static
 
         public static string CreateSHA512(string strData)
         {
+            if (String.IsNullOrEmpty(strData)) throw new ArgumentException();
+            if (String.IsNullOrWhiteSpace(strData)) throw new ArgumentException();
+            
             var message = Encoding.UTF8.GetBytes(strData);
             using var alg = SHA512.Create();
 
