@@ -11,23 +11,40 @@ namespace ServiceNowComparerLibrary.Modules.Instance
     public class ServiceNowInstanceHelper
     {
         private ServiceNowInstance _serviceNowInstance;
-        private bool _authenticatedOnInstance;
         private string? _base64AuthInfo;
         private HttpClient _client;
+        private HttpRequestMessage _request;
 
         public ServiceNowInstanceHelper(ServiceNowInstance serviceNowInstance)
         {
             _serviceNowInstance = serviceNowInstance;
             _base64AuthInfo = GenerateAuthInfo();
-            _authenticatedOnInstance = false;
             _client = new HttpClient();
+            _request = new HttpRequestMessage();
+        }
+
+        public async Task<string> GetData(ServiceNowApiWrapper serviceNowApiWrapper)
+        {
+            if (serviceNowApiWrapper == null) return String.Empty;
+            
+            _request.RequestUri = new Uri(PrepareClientUriWithWrapper(serviceNowApiWrapper));
+            _request.Method = serviceNowApiWrapper.ApiAction;
+            foreach (var header in serviceNowApiWrapper.Header)
+            {
+                _request.Headers.Add(header.Key, header.Value);
+            }
+            var response = await _client.SendAsync(_request);
+            var result = await response.Content.ReadAsStringAsync();
+            return result;
         }
 
         public string PrepareClientUriWithWrapper(ServiceNowApiWrapper serviceNowApiWrapper)
         {
             if (_base64AuthInfo == null) throw new Exception("Missing Authenticationobject -> _base64AuthInfo");
 
-            serviceNowApiWrapper.Header.Add("Authorization", $"Basic {_base64AuthInfo}");
+            string auth = $"Basic {_base64AuthInfo}";
+
+            serviceNowApiWrapper.Header.Add("Authorization", auth);
             serviceNowApiWrapper.Header.Add("Accept", "application/xml");
 
             foreach (KeyValuePair<string, string> item in serviceNowApiWrapper.Header)
@@ -48,6 +65,7 @@ namespace ServiceNowComparerLibrary.Modules.Instance
             }
             RequestUri.Append($"/table/{serviceNowApiWrapper.Table}");
             RequestUri.Append($"?sysparm_limit={serviceNowApiWrapper.limit}");
+            RequestUri.Append("&sysparm_offset=0");
 
             return RequestUri.ToString();
         }
@@ -74,6 +92,8 @@ namespace ServiceNowComparerLibrary.Modules.Instance
         {
             ApiVersion = "latest";
             limit = 1;
+            Header = new Dictionary<string, string>();
+            ApiAction = HttpMethod.Get;
         }
     }
 }
