@@ -45,7 +45,7 @@ namespace ServiceNowComparerLibrary.Modules.Instance
             string auth = $"Basic {_base64AuthInfo}";
 
             serviceNowApiWrapper.Header.Add("Authorization", auth);
-            serviceNowApiWrapper.Header.Add("Accept", "application/xml");
+            serviceNowApiWrapper.Header.Add("Accept", "application/json");
 
             foreach (KeyValuePair<string, string> item in serviceNowApiWrapper.Header)
             {
