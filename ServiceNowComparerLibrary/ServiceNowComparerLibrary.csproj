@@ -16,4 +16,8 @@
     <Content Include="settings.ini" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Storage\Modules\Instance" />
+  </ItemGroup>
+
 </Project>
