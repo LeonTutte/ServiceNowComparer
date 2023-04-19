@@ -26,6 +26,12 @@ namespace ServiceNowComparerLibrary.Modules.Static
             string filePath = Path.Combine(Environment.CurrentDirectory, data["Database"]["Filename"]);
             return $"Filename={filePath};Password={CryptoModule.StoragePassword}";
         }
+
+        public static string GetStorageLabel()
+        {
+            IniData data = ConfigurationModule.GetConfiguration();
+            return data["Database"]["Filename"];
+        }
         /// <summary>
         /// Returns the full paht to the storage file
         /// </summary>
