@@ -41,10 +41,5 @@ namespace ServiceNowComparerLibrary.Modules.Static
             IniData data = ConfigurationModule.GetConfiguration();
             return Path.Combine(Environment.CurrentDirectory, data["Database"]["Filename"]);
         }
-        public static string GetStorageLabel()
-        {
-            IniData data = ConfigurationModule.GetConfiguration();
-            return data["Database"]["Filename"];
-        }
     }
 }
