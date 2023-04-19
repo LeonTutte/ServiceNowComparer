@@ -1,3 +1,7 @@
+using LiteDB;
+
+using ServiceNowComparerLibrary.Modules.Static;
+
 using Spectre.Console;
 
 namespace ServiceNowComparerConsole;
@@ -7,6 +11,7 @@ public class MainMenu
     private ConsoleKey _cki;
     private string _storageFile;
     private string? _lastConsoleInput;
+    private LiteDatabase? _storage;
 
     public void OpenMenu()
     {
@@ -17,8 +22,9 @@ public class MainMenu
             AnsiConsole.Clear();
             AnsiConsole.Markup("");
             AnsiConsole.MarkupLine("--- [green]Please choose an action[/] ---");
+            AnsiConsole.WriteLine("A: Create new ServiceNow Instance");
             AnsiConsole.MarkupLine("--- [grey]Quit by pressing Q[/] ---");
-            
+
             UserInputPrompt(true);
             switch (_cki)
             {
@@ -33,33 +39,53 @@ public class MainMenu
 
     public void AskForStorageFile()
     {
-        AnsiConsole.WriteLine("Please input your storage file name: ");
-        UserInputPrompt();
-        _storageFile = _lastConsoleInput + ".storage";
+        _storageFile = StorageModule.GetStorageLabel();
         AnsiConsole.Status()
-            .Start("Checking for existing file", ctx =>
+            .Start("Checking for storage file", ctx =>
             {
                 // TODO: Check if file exists
                 AnsiConsole.MarkupLine("Checking...");
 
                 ctx.Spinner(Spinner.Known.Arc);
                 ctx.SpinnerStyle(Style.Parse("yellow"));
-                if (new Random().Next(1, 100) > 2)
-                {
-                    // TODO: Open file with password
-                    ctx.Status("Opening storage");
-                    ctx.SpinnerStyle(Style.Parse("green"));
-                    Thread.Sleep(3000);
-                }
-                else
-                {
-                    // TODO: ask if file should be created
-                    ctx.Status("Could not find file");
-                    ctx.SpinnerStyle(Style.Parse("red"));
-                    Thread.Sleep(3000);
-                }
             });
-}
+        if (File.Exists(_storageFile))
+        {
+            AnsiConsole.WriteLine("Please input your storage password");
+            UserInputPrompt();
+            CryptoModule.StoragePassword = _lastConsoleInput;
+            _lastConsoleInput = String.Empty;
+            _storage = StorageModule.GetStorage();
+            AnsiConsole.MarkupLine("[green]Opening storage[/]");
+            Thread.Sleep(2000);
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[red]Could not find file[/]");
+            Thread.Sleep(1000);
+            var answer = AnsiConsole.Prompt(
+                new SelectionPrompt<bool>()
+                    .Title($"Do you want to create a new storage with the label {_storageFile}")
+                    .AddChoices(new bool[] { true, false }));
+            if (answer)
+            {
+                AnsiConsole.WriteLine("Creating new file");
+                Thread.Sleep(1000);
+                AnsiConsole.WriteLine("Please input your storage password");
+                UserInputPrompt();
+                CryptoModule.StoragePassword = _lastConsoleInput;
+                _lastConsoleInput = String.Empty;
+                _storage = StorageModule.GetStorage();
+                AnsiConsole.MarkupLine("[green]Opening storage[/]");
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                AnsiConsole.WriteLine("Exiting");
+                Environment.Exit(0);
+            }
+        }
+    }
 
     private void UserInputPrompt(bool key = false)
     {
