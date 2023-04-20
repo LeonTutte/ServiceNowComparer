@@ -6,31 +6,32 @@ using ServiceNowComparerLibrary.Storage.Modules.Interface;
 
 namespace ServiceNowComparerLibrary.Storage.Modules.Instance;
 
-public class ServiceNowInstanceHelper :IStorageDataHelper<ServiceNowInstance>
+public class UserHelper : IStorageDataHelper<User>
 {
-    private readonly ILiteCollection<ServiceNowInstance> _collection;
+    private readonly ILiteCollection<User> _collection;
 
-    public ServiceNowInstanceHelper(LiteDatabase storage)
+    public UserHelper(LiteDatabase storage)
     {
-        _collection = storage.GetCollection<ServiceNowInstance>("instances");
+        _collection = storage.GetCollection<User>("users");
     }
-    public ServiceNowInstance GetRecordById(int id)
+    
+    public User GetRecordById(int id)
     {
         return _collection.FindById(id);
     }
 
-    public IEnumerable<ServiceNowInstance> GetRecordsByLabel(string searchTerm)
+    public IEnumerable<User> GetRecordsByLabel(string searchTerm)
     {
         return _collection.FindAll().Where(x => x.Label.Equals(searchTerm));
     }
 
-    public int InsertRecord(ServiceNowInstance record)
+    public int InsertRecord(User record)
     {
         _collection.Insert(record);
         return _collection.FindOne(x => x.Equals(record)).Id;
     }
 
-    public bool UpdateRecord(ServiceNowInstance record)
+    public bool UpdateRecord(User record)
     {
         try
         {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace ServiceNowComparerLibrary.Modules.Instance
             return result;
         }
 
-        public string PrepareClientUriWithWrapper(ServiceNowApiWrapper serviceNowApiWrapper)
+        public string PrepareClientUriWithWrapper(ServiceNowApiWrapper? serviceNowApiWrapper)
         {
             if (_base64AuthInfo == null) throw new Exception("Missing Authenticationobject -> _base64AuthInfo");
 
