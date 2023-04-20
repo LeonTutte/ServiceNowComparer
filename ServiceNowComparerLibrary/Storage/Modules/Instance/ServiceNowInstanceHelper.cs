@@ -18,6 +18,11 @@ public class ServiceNowInstanceHelper :IStorageDataHelper<ServiceNowInstance>
         return _collection.FindById(id);
     }
 
+    public IEnumerable<ServiceNowInstance> GetRecordsByLabel(string searchTerm)
+    {
+        return _collection.FindAll().Where(x => x.Label.Equals(searchTerm));
+    }
+
     public int InsertRecord(ServiceNowInstance record)
     {
         _collection.Insert(record);
