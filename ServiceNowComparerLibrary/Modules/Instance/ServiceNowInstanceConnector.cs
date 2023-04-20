@@ -8,14 +8,14 @@ using ServiceNowComparerLibrary.Storage.Models;
 
 namespace ServiceNowComparerLibrary.Modules.Instance
 {
-    public class ServiceNowInstanceHelper
+    public class ServiceNowInstanceConnector
     {
         private ServiceNowInstance _serviceNowInstance;
         private string? _base64AuthInfo;
         private HttpClient _client;
         private HttpRequestMessage _request;
 
-        public ServiceNowInstanceHelper(ServiceNowInstance serviceNowInstance)
+        public ServiceNowInstanceConnector(ServiceNowInstance serviceNowInstance)
         {
             _serviceNowInstance = serviceNowInstance;
             _base64AuthInfo = GenerateAuthInfo();
